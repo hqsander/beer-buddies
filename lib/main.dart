@@ -1,4 +1,4 @@
-import 'package:beer_buddies/telas/tela_lista_cervejas.dart';
+import 'package:beer_buddies/telas/tela_edicao_cerveja.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: TelaListaCervejas(),
+      home: TelaEdicaoCerveja(),
     );
   }
 }
