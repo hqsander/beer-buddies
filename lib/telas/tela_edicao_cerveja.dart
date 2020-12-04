@@ -7,7 +7,13 @@ class TelaEdicaoCerveja extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.amber,
+        child: Icon(
+          Icons.save,
+          color: Colors.white,
+        ),
         onPressed: () {
           Provider.of<Store>(context, listen: false).addCerveja(
             Cerveja(
@@ -83,35 +89,40 @@ class TelaEdicaoCerveja extends StatelessWidget {
               ),
               child: ListView(
                 children: [
-                  Container(
-                    padding: EdgeInsets.all(10),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: Text("IBU"),
-                        ),
-                        Expanded(
-                          flex: 4,
-                          child: SliderIBU(),
-                        ),
-                      ],
-                    ),
+                  SliderAvaliacao(
+                    item: "IBU",
+                    min: 10,
+                    max: 95,
+                    divisions: 85,
+                    precisao: 0,
                   ),
-                  Container(
-                    padding: EdgeInsets.all(10),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: Text("Teor"),
-                        ),
-                        Expanded(
-                          flex: 4,
-                          child: SliderIBU(),
-                        ),
-                      ],
-                    ),
+                  SliderAvaliacao(
+                    item: "Teor",
+                    min: 3,
+                    max: 11,
+                    divisions: 16,
+                    precisao: 1,
+                  ),
+                  SliderAvaliacao(
+                    item: "Odor",
+                    min: 1,
+                    max: 5,
+                    divisions: 4,
+                    precisao: 0,
+                  ),
+                  SliderAvaliacao(
+                    item: "Sabor",
+                    min: 1,
+                    max: 5,
+                    divisions: 4,
+                    precisao: 0,
+                  ),
+                  SliderAvaliacao(
+                    item: "Retrogosto",
+                    min: 1,
+                    max: 5,
+                    divisions: 4,
+                    precisao: 0,
                   ),
                 ],
               ),
@@ -123,30 +134,60 @@ class TelaEdicaoCerveja extends StatelessWidget {
   }
 }
 
-class SliderIBU extends StatefulWidget {
+class SliderAvaliacao extends StatefulWidget {
+  final String item;
+  final double min;
+  final double max;
+  final int divisions;
+  final int precisao;
+
+  SliderAvaliacao(
+      {this.item, this.min, this.max, this.divisions, this.precisao});
+
   @override
-  _SliderIBUState createState() => _SliderIBUState();
+  _SliderAvaliacaoState createState() => _SliderAvaliacaoState();
 }
 
-class _SliderIBUState extends State<SliderIBU> {
-  double _currentSliderValue = 20;
+class _SliderAvaliacaoState extends State<SliderAvaliacao> {
+  double valor;
+
+  @override
+  void initState() {
+    valor = widget.min;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Slider(
-      activeColor: Colors.amber,
-      value: _currentSliderValue,
-      min: 5,
-      max: 80,
-      divisions: 75,
-      label: _currentSliderValue.round().toString(),
-      onChanged: (double value) {
-        setState(
-          () {
-            _currentSliderValue = value;
-          },
-        );
-      },
+    return Container(
+      padding: EdgeInsets.all(10),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 2,
+            child: Text(widget.item),
+          ),
+          Expanded(
+            flex: 1,
+            child: Text(valor.toStringAsFixed(widget.precisao)),
+          ),
+          Expanded(
+            flex: 4,
+            child: Slider(
+              activeColor: Colors.amber,
+              value: valor,
+              min: widget.min,
+              max: widget.max,
+              divisions: widget.divisions,
+              label: valor.toStringAsFixed(widget.precisao),
+              onChanged: (double value) {
+                setState(() {
+                  valor = value;
+                });
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
