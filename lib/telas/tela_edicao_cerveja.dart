@@ -11,6 +11,15 @@ class TelaEdicaoCerveja extends StatefulWidget {
 class _TelaEdicaoCervejaState extends State<TelaEdicaoCerveja> {
   Cerveja cerveja = new Cerveja();
 
+  double calculaMedia() {
+    if (cerveja.odor != null &&
+        cerveja.sabor != null &&
+        cerveja.retrogosto != null) {
+      return (cerveja.odor + cerveja.sabor + cerveja.retrogosto) / 3;
+    }
+    return 0;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,16 +31,8 @@ class _TelaEdicaoCervejaState extends State<TelaEdicaoCerveja> {
           color: Colors.white,
         ),
         onPressed: () {
-          cerveja.cervejaria = "Cervejaria";
-          cerveja.nome = "Nome";
           cerveja.estilo = "Estilo";
           cerveja.possuiIbuInformado = true;
-
-          print(cerveja.ibu);
-          print(cerveja.teor);
-          print(cerveja.odor);
-          print(cerveja.sabor);
-          print(cerveja.retrogosto);
 
           Provider.of<Store>(context, listen: false).addCerveja(cerveja);
           Navigator.pop(context);
@@ -53,7 +54,7 @@ class _TelaEdicaoCervejaState extends State<TelaEdicaoCerveja> {
               children: [
                 CircleAvatar(
                   child: Text(
-                    "4.5",
+                    calculaMedia().toStringAsFixed(1),
                     style: TextStyle(
                       color: Colors.amber,
                       fontSize: 25,
@@ -66,21 +67,30 @@ class _TelaEdicaoCervejaState extends State<TelaEdicaoCerveja> {
                 SizedBox(
                   height: 10,
                 ),
-                Text(
-                  "Antuérpia",
+                TextField(
+                  cursorColor: Colors.white,
+                  autofocus: true,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 30,
                     fontWeight: FontWeight.w700,
                   ),
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                  ),
+                  onChanged: (cervejaria) => cerveja.cervejaria = cervejaria,
                 ),
-                Text(
-                  "Nikita Cherry Hickey",
+                TextField(
+                  cursorColor: Colors.white,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 25,
                     fontWeight: FontWeight.w300,
                   ),
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                  ),
+                  onChanged: (nome) => cerveja.nome = nome,
                 ),
               ],
             ),
@@ -118,7 +128,12 @@ class _TelaEdicaoCervejaState extends State<TelaEdicaoCerveja> {
                     max: 5,
                     divisions: 4,
                     precisao: 0,
-                    callback: (double odor) => cerveja.odor = odor.round(),
+                    callback: (double odor) {
+                      cerveja.odor = odor.round();
+                      setState(() {
+                        calculaMedia();
+                      });
+                    },
                   ),
                   SliderAvaliacao(
                     item: "Sabor",
@@ -126,7 +141,12 @@ class _TelaEdicaoCervejaState extends State<TelaEdicaoCerveja> {
                     max: 5,
                     divisions: 4,
                     precisao: 0,
-                    callback: (double sabor) => cerveja.sabor = sabor.round(),
+                    callback: (double sabor) {
+                      cerveja.sabor = sabor.round();
+                      setState(() {
+                        calculaMedia();
+                      });
+                    },
                   ),
                   SliderAvaliacao(
                     item: "Retrogosto",
@@ -134,8 +154,12 @@ class _TelaEdicaoCervejaState extends State<TelaEdicaoCerveja> {
                     max: 5,
                     divisions: 4,
                     precisao: 0,
-                    callback: (double retrogosto) =>
-                        cerveja.retrogosto = retrogosto.round(),
+                    callback: (double retrogosto) {
+                      cerveja.retrogosto = retrogosto.round();
+                      setState(() {
+                        calculaMedia();
+                      });
+                    },
                   ),
                 ],
               ),
