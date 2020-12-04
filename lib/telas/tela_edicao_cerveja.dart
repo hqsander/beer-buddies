@@ -3,7 +3,14 @@ import 'package:beer_buddies/store.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class TelaEdicaoCerveja extends StatelessWidget {
+class TelaEdicaoCerveja extends StatefulWidget {
+  @override
+  _TelaEdicaoCervejaState createState() => _TelaEdicaoCervejaState();
+}
+
+class _TelaEdicaoCervejaState extends State<TelaEdicaoCerveja> {
+  Cerveja cerveja = new Cerveja();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,18 +22,18 @@ class TelaEdicaoCerveja extends StatelessWidget {
           color: Colors.white,
         ),
         onPressed: () {
-          Provider.of<Store>(context, listen: false).addCerveja(
-            Cerveja(
-                nome: "nome4",
-                cervejaria: "cervejaria4",
-                estilo: "estilo4",
-                possuiIbuInformado: true,
-                ibu: 40,
-                teor: 5,
-                odor: 3,
-                sabor: 3,
-                retrogosto: 3),
-          );
+          cerveja.cervejaria = "Cervejaria";
+          cerveja.nome = "Nome";
+          cerveja.estilo = "Estilo";
+          cerveja.possuiIbuInformado = true;
+
+          print(cerveja.ibu);
+          print(cerveja.teor);
+          print(cerveja.odor);
+          print(cerveja.sabor);
+          print(cerveja.retrogosto);
+
+          Provider.of<Store>(context, listen: false).addCerveja(cerveja);
           Navigator.pop(context);
         },
       ),
@@ -95,6 +102,7 @@ class TelaEdicaoCerveja extends StatelessWidget {
                     max: 95,
                     divisions: 85,
                     precisao: 0,
+                    callback: (double ibu) => cerveja.ibu = ibu,
                   ),
                   SliderAvaliacao(
                     item: "Teor",
@@ -102,6 +110,7 @@ class TelaEdicaoCerveja extends StatelessWidget {
                     max: 11,
                     divisions: 16,
                     precisao: 1,
+                    callback: (double teor) => cerveja.teor = teor,
                   ),
                   SliderAvaliacao(
                     item: "Odor",
@@ -109,6 +118,7 @@ class TelaEdicaoCerveja extends StatelessWidget {
                     max: 5,
                     divisions: 4,
                     precisao: 0,
+                    callback: (double odor) => cerveja.odor = odor.round(),
                   ),
                   SliderAvaliacao(
                     item: "Sabor",
@@ -116,6 +126,7 @@ class TelaEdicaoCerveja extends StatelessWidget {
                     max: 5,
                     divisions: 4,
                     precisao: 0,
+                    callback: (double sabor) => cerveja.sabor = sabor.round(),
                   ),
                   SliderAvaliacao(
                     item: "Retrogosto",
@@ -123,6 +134,8 @@ class TelaEdicaoCerveja extends StatelessWidget {
                     max: 5,
                     divisions: 4,
                     precisao: 0,
+                    callback: (double retrogosto) =>
+                        cerveja.retrogosto = retrogosto.round(),
                   ),
                 ],
               ),
@@ -140,9 +153,15 @@ class SliderAvaliacao extends StatefulWidget {
   final double max;
   final int divisions;
   final int precisao;
+  final Function callback;
 
   SliderAvaliacao(
-      {this.item, this.min, this.max, this.divisions, this.precisao});
+      {this.item,
+      this.min,
+      this.max,
+      this.divisions,
+      this.precisao,
+      this.callback});
 
   @override
   _SliderAvaliacaoState createState() => _SliderAvaliacaoState();
@@ -184,6 +203,7 @@ class _SliderAvaliacaoState extends State<SliderAvaliacao> {
                   valor = value;
                 });
               },
+              onChangeEnd: widget.callback,
             ),
           ),
         ],
