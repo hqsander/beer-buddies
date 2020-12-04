@@ -1,41 +1,10 @@
 import 'package:beer_buddies/modelo/cerveja.dart';
+import 'package:beer_buddies/store.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class TelaListaCervejas extends StatelessWidget {
-  List<Cerveja> cervejas = [
-    Cerveja(
-        nome: "nome1",
-        cervejaria: "cervejaria1",
-        estilo: "estilo1",
-        possuiIbuInformado: true,
-        ibu: 40,
-        teor: 5,
-        odor: 3,
-        sabor: 3,
-        retrogosto: 3),
-    Cerveja(
-        nome: "nome2",
-        cervejaria: "cervejaria2",
-        estilo: "estilo2",
-        possuiIbuInformado: true,
-        ibu: 40,
-        teor: 5,
-        odor: 3,
-        sabor: 3,
-        retrogosto: 3),
-    Cerveja(
-        nome: "nome3",
-        cervejaria: "cervejaria3",
-        estilo: "estilo3",
-        possuiIbuInformado: true,
-        ibu: 40,
-        teor: 5,
-        odor: 3,
-        sabor: 3,
-        retrogosto: 3),
-  ];
-
   List<Widget> montarListaCervejas(List<Cerveja> cervejas) {
     List<Widget> tiles = [];
 
@@ -87,7 +56,7 @@ class TelaListaCervejas extends StatelessWidget {
         ),
       ),
       body: ListView(
-        children: montarListaCervejas(cervejas),
+        children: montarListaCervejas(Provider.of<Store>(context).cervejas),
       ),
     );
   }

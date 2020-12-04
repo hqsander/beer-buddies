@@ -1,9 +1,29 @@
+import 'package:beer_buddies/modelo/cerveja.dart';
+import 'package:beer_buddies/store.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class TelaEdicaoCerveja extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Provider.of<Store>(context, listen: false).addCerveja(
+            Cerveja(
+                nome: "nome4",
+                cervejaria: "cervejaria4",
+                estilo: "estilo4",
+                possuiIbuInformado: true,
+                ibu: 40,
+                teor: 5,
+                odor: 3,
+                sabor: 3,
+                retrogosto: 3),
+          );
+          Navigator.pop(context);
+        },
+      ),
       backgroundColor: Colors.amber,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
