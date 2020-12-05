@@ -12,7 +12,17 @@ class TelaListaCervejas extends StatelessWidget {
       tiles.add(
         ListTile(
           title: Text(cerveja.cervejaria),
-          subtitle: Text(cerveja.nome),
+          subtitle: Text(cerveja.nome + " / " + cerveja.estilo),
+          trailing: Text(
+            cerveja.odor.toString() +
+                " - " +
+                cerveja.sabor.toString() +
+                " - " +
+                cerveja.retrogosto.toString() +
+                " - " +
+                ((cerveja.odor + cerveja.sabor + cerveja.retrogosto) / 3)
+                    .toStringAsFixed(1),
+          ),
         ),
       );
     });

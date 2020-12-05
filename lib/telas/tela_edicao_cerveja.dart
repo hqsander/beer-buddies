@@ -1,3 +1,4 @@
+import 'package:beer_buddies/constantes.dart';
 import 'package:beer_buddies/modelo/cerveja.dart';
 import 'package:beer_buddies/store.dart';
 import 'package:flutter/material.dart';
@@ -31,11 +32,19 @@ class _TelaEdicaoCervejaState extends State<TelaEdicaoCerveja> {
           color: Colors.white,
         ),
         onPressed: () {
-          cerveja.estilo = "Estilo";
           cerveja.possuiIbuInformado = true;
 
-          Provider.of<Store>(context, listen: false).addCerveja(cerveja);
-          Navigator.pop(context);
+          if (cerveja.cervejaria != null &&
+              cerveja.nome != null &&
+              cerveja.estilo != null &&
+              cerveja.ibu != null &&
+              cerveja.teor != null &&
+              cerveja.odor != null &&
+              cerveja.sabor != null &&
+              cerveja.retrogosto != null) {
+            Provider.of<Store>(context, listen: false).addCerveja(cerveja);
+            Navigator.pop(context);
+          }
         },
       ),
       backgroundColor: Colors.amber,
@@ -45,52 +54,64 @@ class _TelaEdicaoCervejaState extends State<TelaEdicaoCerveja> {
           Container(
             padding: EdgeInsets.only(
               top: 60,
-              left: 30,
-              right: 30,
+              left: 10,
+              right: 10,
               bottom: 30,
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                CircleAvatar(
-                  child: Text(
-                    calculaMedia().toStringAsFixed(1),
-                    style: TextStyle(
-                      color: Colors.amber,
-                      fontSize: 25,
-                      fontWeight: FontWeight.w800,
+                Expanded(
+                  flex: 3,
+                  child: Column(
+                    children: [
+                      TextField(
+                        decoration: kTextFieldDecoration.copyWith(
+                            hintText: "Cervejaria",
+                            fillColor: Colors.amber.shade400),
+                        cursorColor: Colors.white,
+                        style: kTextStyleFormulario,
+                        onChanged: (cervejaria) =>
+                            cerveja.cervejaria = cervejaria,
+                      ),
+                      SizedBox(
+                        height: 3,
+                      ),
+                      TextField(
+                        decoration: kTextFieldDecoration.copyWith(
+                            hintText: "Nome", fillColor: Colors.amber.shade400),
+                        cursorColor: Colors.white,
+                        style: kTextStyleFormulario,
+                        onChanged: (nome) => cerveja.nome = nome,
+                      ),
+                      SizedBox(
+                        height: 3,
+                      ),
+                      TextField(
+                        decoration: kTextFieldDecoration.copyWith(
+                            hintText: "Estilo",
+                            fillColor: Colors.amber.shade400),
+                        cursorColor: Colors.white,
+                        style: kTextStyleFormulario,
+                        onChanged: (estilo) => cerveja.estilo = estilo,
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: CircleAvatar(
+                    child: Text(
+                      calculaMedia().toStringAsFixed(1),
+                      style: TextStyle(
+                        color: Colors.amber,
+                        fontSize: 25,
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
+                    backgroundColor: Colors.white,
+                    radius: 30,
                   ),
-                  backgroundColor: Colors.white,
-                  radius: 30,
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                TextField(
-                  cursorColor: Colors.white,
-                  autofocus: true,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 30,
-                    fontWeight: FontWeight.w700,
-                  ),
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                  ),
-                  onChanged: (cervejaria) => cerveja.cervejaria = cervejaria,
-                ),
-                TextField(
-                  cursorColor: Colors.white,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 25,
-                    fontWeight: FontWeight.w300,
-                  ),
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                  ),
-                  onChanged: (nome) => cerveja.nome = nome,
                 ),
               ],
             ),
