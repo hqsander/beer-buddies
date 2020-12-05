@@ -11,17 +11,41 @@ class TelaListaCervejas extends StatelessWidget {
     cervejas.forEach((cerveja) {
       tiles.add(
         ListTile(
-          title: Text(cerveja.cervejaria),
-          subtitle: Text(cerveja.nome + " / " + cerveja.estilo),
-          trailing: Text(
-            cerveja.odor.toString() +
-                " - " +
-                cerveja.sabor.toString() +
-                " - " +
-                cerveja.retrogosto.toString() +
-                " - " +
+          leading: CircleAvatar(
+            child: Icon(
+              Icons.image,
+              color: Colors.grey.shade300,
+              size: 40,
+            ),
+            backgroundColor: Colors.white,
+            radius: 30,
+          ),
+          title: Text(
+            (cerveja.cervejaria + " - " + cerveja.nome),
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          subtitle: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.star,
+                color: Colors.amber,
+                size: 18,
+              ),
+              Text(
                 ((cerveja.odor + cerveja.sabor + cerveja.retrogosto) / 3)
                     .toStringAsFixed(1),
+                style: TextStyle(
+                  color: Colors.amber.shade600,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Text(cerveja.estilo.toUpperCase()),
+            ],
           ),
         ),
       );
@@ -33,7 +57,7 @@ class TelaListaCervejas extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade50,
+      backgroundColor: Colors.grey.shade100,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.amber,
