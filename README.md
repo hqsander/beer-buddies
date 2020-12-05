@@ -1,16 +1,7 @@
-# beer_buddies
+# Beer Buddies
+Beer Buddies é um aplicativo para avaliar e registrar a memória das melhores cervejas que você já provou na vida. Nos bastidores esse projeto serve também para meu desenvolvimento pessoal e fluência em Dart.
 
-A new Flutter application.
+## O que está sendo criado
+Nesse momento inicial o app é capaz de gravar a avaliação de uma cerveja e lista-las, porém tenho como meta o desenvolvimento de features diversas me forçando aprender novos recursos.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![Lista Cervejas](https://i.imgur.com/ZxBn6x4.png)
