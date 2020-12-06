@@ -63,7 +63,6 @@ class _TelaEdicaoCervejaState extends State<TelaEdicaoCerveja> {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Expanded(
-                  flex: 3,
                   child: Column(
                     children: [
                       TextField(
@@ -99,21 +98,6 @@ class _TelaEdicaoCervejaState extends State<TelaEdicaoCerveja> {
                     ],
                   ),
                 ),
-                Expanded(
-                  flex: 1,
-                  child: CircleAvatar(
-                    child: Text(
-                      calculaMedia().toStringAsFixed(1),
-                      style: TextStyle(
-                        color: Colors.amber,
-                        fontSize: 25,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                    backgroundColor: Colors.white,
-                    radius: 30,
-                  ),
-                ),
               ],
             ),
           ),
@@ -139,8 +123,8 @@ class _TelaEdicaoCervejaState extends State<TelaEdicaoCerveja> {
                   SliderAvaliacao(
                     item: "Teor",
                     min: 3,
-                    max: 11,
-                    divisions: 16,
+                    max: 13,
+                    divisions: 100,
                     precisao: 1,
                     callback: (double teor) => cerveja.teor = teor,
                   ),
@@ -148,14 +132,20 @@ class _TelaEdicaoCervejaState extends State<TelaEdicaoCerveja> {
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     child: Row(
                       children: [
-                        Text("Odor"),
-                        AvaliacaoCriterio(
-                          onChanged: (int odor) {
-                            cerveja.odor = odor;
-                            setState(() {
-                              calculaMedia();
-                            });
-                          },
+                        Expanded(
+                          flex: 1,
+                          child: Text("Odor"),
+                        ),
+                        Expanded(
+                          flex: 4,
+                          child: AvaliacaoCriterio(
+                            onChanged: (int odor) {
+                              cerveja.odor = odor;
+                              setState(() {
+                                calculaMedia();
+                              });
+                            },
+                          ),
                         ),
                       ],
                     ),
@@ -164,14 +154,20 @@ class _TelaEdicaoCervejaState extends State<TelaEdicaoCerveja> {
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     child: Row(
                       children: [
-                        Text("Sabor"),
-                        AvaliacaoCriterio(
-                          onChanged: (int sabor) {
-                            cerveja.sabor = sabor;
-                            setState(() {
-                              calculaMedia();
-                            });
-                          },
+                        Expanded(
+                          flex: 1,
+                          child: Text("Sabor"),
+                        ),
+                        Expanded(
+                          flex: 4,
+                          child: AvaliacaoCriterio(
+                            onChanged: (int sabor) {
+                              cerveja.sabor = sabor;
+                              setState(() {
+                                calculaMedia();
+                              });
+                            },
+                          ),
                         ),
                       ],
                     ),
@@ -180,14 +176,20 @@ class _TelaEdicaoCervejaState extends State<TelaEdicaoCerveja> {
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     child: Row(
                       children: [
-                        Text("Retrogosto"),
-                        AvaliacaoCriterio(
-                          onChanged: (int retrogosto) {
-                            cerveja.retrogosto = retrogosto;
-                            setState(() {
-                              calculaMedia();
-                            });
-                          },
+                        Expanded(
+                          flex: 1,
+                          child: Text("Retrogosto"),
+                        ),
+                        Expanded(
+                          flex: 4,
+                          child: AvaliacaoCriterio(
+                            onChanged: (int retrogosto) {
+                              cerveja.retrogosto = retrogosto;
+                              setState(() {
+                                calculaMedia();
+                              });
+                            },
+                          ),
                         ),
                       ],
                     ),
@@ -268,10 +270,19 @@ class _SliderAvaliacaoState extends State<SliderAvaliacao> {
           ),
           Expanded(
             flex: 1,
-            child: Text(valor.toStringAsFixed(widget.precisao)),
+            child: Container(
+              alignment: Alignment.centerRight,
+              child: Text(
+                valor.toStringAsFixed(widget.precisao),
+                style: TextStyle(
+                  color: Colors.amber,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
           ),
           Expanded(
-            flex: 4,
+            flex: 8,
             child: Slider(
               activeColor: Colors.amber,
               value: valor,
