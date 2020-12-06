@@ -1,6 +1,7 @@
 import 'package:beer_buddies/constantes.dart';
 import 'package:beer_buddies/modelo/cerveja.dart';
 import 'package:beer_buddies/store.dart';
+import 'package:beer_buddies/widgets/star_rating.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -143,44 +144,53 @@ class _TelaEdicaoCervejaState extends State<TelaEdicaoCerveja> {
                     precisao: 1,
                     callback: (double teor) => cerveja.teor = teor,
                   ),
-                  SliderAvaliacao(
-                    item: "Odor",
-                    min: 1,
-                    max: 5,
-                    divisions: 4,
-                    precisao: 0,
-                    callback: (double odor) {
-                      cerveja.odor = odor.round();
-                      setState(() {
-                        calculaMedia();
-                      });
-                    },
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      children: [
+                        Text("Odor"),
+                        AvaliacaoCriterio(
+                          onChanged: (int odor) {
+                            cerveja.odor = odor;
+                            setState(() {
+                              calculaMedia();
+                            });
+                          },
+                        ),
+                      ],
+                    ),
                   ),
-                  SliderAvaliacao(
-                    item: "Sabor",
-                    min: 1,
-                    max: 5,
-                    divisions: 4,
-                    precisao: 0,
-                    callback: (double sabor) {
-                      cerveja.sabor = sabor.round();
-                      setState(() {
-                        calculaMedia();
-                      });
-                    },
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      children: [
+                        Text("Sabor"),
+                        AvaliacaoCriterio(
+                          onChanged: (int sabor) {
+                            cerveja.sabor = sabor;
+                            setState(() {
+                              calculaMedia();
+                            });
+                          },
+                        ),
+                      ],
+                    ),
                   ),
-                  SliderAvaliacao(
-                    item: "Retrogosto",
-                    min: 1,
-                    max: 5,
-                    divisions: 4,
-                    precisao: 0,
-                    callback: (double retrogosto) {
-                      cerveja.retrogosto = retrogosto.round();
-                      setState(() {
-                        calculaMedia();
-                      });
-                    },
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      children: [
+                        Text("Retrogosto"),
+                        AvaliacaoCriterio(
+                          onChanged: (int retrogosto) {
+                            cerveja.retrogosto = retrogosto;
+                            setState(() {
+                              calculaMedia();
+                            });
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -188,6 +198,32 @@ class _TelaEdicaoCervejaState extends State<TelaEdicaoCerveja> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class AvaliacaoCriterio extends StatefulWidget {
+  final Function onChanged;
+
+  AvaliacaoCriterio({this.onChanged});
+
+  @override
+  _AvaliacaoCriterioState createState() => _AvaliacaoCriterioState();
+}
+
+class _AvaliacaoCriterioState extends State<AvaliacaoCriterio> {
+  int rating = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return StarRating(
+      value: rating,
+      onChanged: (int rating) {
+        widget.onChanged(rating);
+        setState(() {
+          this.rating = rating;
+        });
+      },
     );
   }
 }
