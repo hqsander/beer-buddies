@@ -1,11 +1,13 @@
 import 'package:beer_buddies/modelo/cerveja.dart';
 import 'package:beer_buddies/store.dart';
+import 'package:beer_buddies/telas/tela_edicao_cerveja.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class TelaListaCervejas extends StatelessWidget {
-  List<Widget> montarListaCervejas(List<Cerveja> cervejas) {
+  List<Widget> montarListaCervejas(
+      List<Cerveja> cervejas, BuildContext context) {
     List<Widget> tiles = [];
 
     cervejas.forEach((cerveja) {
@@ -47,6 +49,14 @@ class TelaListaCervejas extends StatelessWidget {
               Text(cerveja.estilo.toUpperCase()),
             ],
           ),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => TelaEdicaoCerveja(cerveja: cerveja),
+              ),
+            );
+          },
         ),
       );
     });
@@ -90,7 +100,8 @@ class TelaListaCervejas extends StatelessWidget {
         ),
       ),
       body: ListView(
-        children: montarListaCervejas(Provider.of<Store>(context).cervejas),
+        children:
+            montarListaCervejas(Provider.of<Store>(context).cervejas, context),
       ),
     );
   }

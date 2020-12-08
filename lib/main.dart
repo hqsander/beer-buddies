@@ -1,3 +1,4 @@
+import 'package:beer_buddies/modelo/cerveja.dart';
 import 'package:beer_buddies/store.dart';
 import 'package:beer_buddies/telas/tela_edicao_cerveja.dart';
 import 'package:beer_buddies/telas/tela_lista_cervejas.dart';
@@ -17,7 +18,9 @@ class MyApp extends StatelessWidget {
         initialRoute: "/",
         routes: {
           "/": (context) => TelaListaCervejas(),
-          "/edicao": (context) => TelaEdicaoCerveja(),
+          "/edicao": (context) => TelaEdicaoCerveja(
+                cerveja: Cerveja(),
+              ),
         },
       ),
     );

@@ -6,12 +6,22 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class TelaEdicaoCerveja extends StatefulWidget {
+  final Cerveja cerveja;
+
+  TelaEdicaoCerveja({@required this.cerveja});
+
   @override
   _TelaEdicaoCervejaState createState() => _TelaEdicaoCervejaState();
 }
 
 class _TelaEdicaoCervejaState extends State<TelaEdicaoCerveja> {
-  Cerveja cerveja = new Cerveja();
+  Cerveja cerveja;
+
+  @override
+  void initState() {
+    super.initState();
+    cerveja = widget.cerveja;
+  }
 
   double calculaMedia() {
     if (cerveja.odor != null &&
@@ -66,6 +76,9 @@ class _TelaEdicaoCervejaState extends State<TelaEdicaoCerveja> {
                   child: Column(
                     children: [
                       TextField(
+                        controller: cerveja.cervejaria != null
+                            ? TextEditingController(text: cerveja.cervejaria)
+                            : null,
                         decoration: kTextFieldDecoration.copyWith(
                             hintText: "Cervejaria",
                             fillColor: Colors.amber.shade400),
@@ -78,6 +91,9 @@ class _TelaEdicaoCervejaState extends State<TelaEdicaoCerveja> {
                         height: 3,
                       ),
                       TextField(
+                        controller: cerveja.nome != null
+                            ? TextEditingController(text: cerveja.nome)
+                            : null,
                         decoration: kTextFieldDecoration.copyWith(
                             hintText: "Nome", fillColor: Colors.amber.shade400),
                         cursorColor: Colors.white,
@@ -88,6 +104,9 @@ class _TelaEdicaoCervejaState extends State<TelaEdicaoCerveja> {
                         height: 3,
                       ),
                       TextField(
+                        controller: cerveja.estilo != null
+                            ? TextEditingController(text: cerveja.estilo)
+                            : null,
                         decoration: kTextFieldDecoration.copyWith(
                             hintText: "Estilo",
                             fillColor: Colors.amber.shade400),
@@ -114,18 +133,20 @@ class _TelaEdicaoCervejaState extends State<TelaEdicaoCerveja> {
                 children: [
                   SliderAvaliacao(
                     item: "IBU",
-                    min: 10,
-                    max: 95,
+                    min: 0,
+                    max: 110,
                     divisions: 85,
                     precisao: 0,
+                    valor: cerveja.ibu,
                     callback: (double ibu) => cerveja.ibu = ibu,
                   ),
                   SliderAvaliacao(
                     item: "Teor",
-                    min: 3,
-                    max: 13,
+                    min: 0,
+                    max: 15,
                     divisions: 100,
                     precisao: 1,
+                    valor: cerveja.teor,
                     callback: (double teor) => cerveja.teor = teor,
                   ),
                   Container(
@@ -145,6 +166,7 @@ class _TelaEdicaoCervejaState extends State<TelaEdicaoCerveja> {
                                 calculaMedia();
                               });
                             },
+                            rating: cerveja.odor,
                           ),
                         ),
                       ],
@@ -167,6 +189,7 @@ class _TelaEdicaoCervejaState extends State<TelaEdicaoCerveja> {
                                 calculaMedia();
                               });
                             },
+                            rating: cerveja.sabor,
                           ),
                         ),
                       ],
@@ -189,6 +212,7 @@ class _TelaEdicaoCervejaState extends State<TelaEdicaoCerveja> {
                                 calculaMedia();
                               });
                             },
+                            rating: cerveja.retrogosto,
                           ),
                         ),
                       ],
@@ -206,15 +230,25 @@ class _TelaEdicaoCervejaState extends State<TelaEdicaoCerveja> {
 
 class AvaliacaoCriterio extends StatefulWidget {
   final Function onChanged;
+  final int rating;
 
-  AvaliacaoCriterio({this.onChanged});
+  AvaliacaoCriterio({
+    this.onChanged,
+    this.rating,
+  });
 
   @override
   _AvaliacaoCriterioState createState() => _AvaliacaoCriterioState();
 }
 
 class _AvaliacaoCriterioState extends State<AvaliacaoCriterio> {
-  int rating = 0;
+  int rating;
+
+  @override
+  void initState() {
+    super.initState();
+    rating = widget.rating != null ? widget.rating : 0;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -237,14 +271,17 @@ class SliderAvaliacao extends StatefulWidget {
   final int divisions;
   final int precisao;
   final Function callback;
+  final double valor;
 
-  SliderAvaliacao(
-      {this.item,
-      this.min,
-      this.max,
-      this.divisions,
-      this.precisao,
-      this.callback});
+  SliderAvaliacao({
+    this.item,
+    this.min,
+    this.max,
+    this.divisions,
+    this.precisao,
+    this.callback,
+    this.valor,
+  });
 
   @override
   _SliderAvaliacaoState createState() => _SliderAvaliacaoState();
@@ -255,7 +292,8 @@ class _SliderAvaliacaoState extends State<SliderAvaliacao> {
 
   @override
   void initState() {
-    valor = widget.min;
+    super.initState();
+    valor = widget.valor != null ? widget.valor : widget.min;
   }
 
   @override
