@@ -81,27 +81,27 @@ class _TelaEdicaoCervejaState extends State<TelaEdicaoCerveja> {
                             : null,
                         decoration: kTextFieldDecoration.copyWith(
                             hintText: "Cervejaria",
-                            fillColor: Colors.amber.shade400),
+                            fillColor: Colors.amber.shade600),
                         cursorColor: Colors.white,
                         style: kTextStyleFormulario,
                         onChanged: (cervejaria) =>
                             cerveja.cervejaria = cervejaria,
                       ),
                       SizedBox(
-                        height: 3,
+                        height: 4,
                       ),
                       TextField(
                         controller: cerveja.nome != null
                             ? TextEditingController(text: cerveja.nome)
                             : null,
                         decoration: kTextFieldDecoration.copyWith(
-                            hintText: "Nome", fillColor: Colors.amber.shade400),
+                            hintText: "Nome", fillColor: Colors.amber.shade600),
                         cursorColor: Colors.white,
                         style: kTextStyleFormulario,
                         onChanged: (nome) => cerveja.nome = nome,
                       ),
                       SizedBox(
-                        height: 3,
+                        height: 4,
                       ),
                       TextField(
                         controller: cerveja.estilo != null
@@ -109,7 +109,7 @@ class _TelaEdicaoCervejaState extends State<TelaEdicaoCerveja> {
                             : null,
                         decoration: kTextFieldDecoration.copyWith(
                             hintText: "Estilo",
-                            fillColor: Colors.amber.shade400),
+                            fillColor: Colors.amber.shade600),
                         cursorColor: Colors.white,
                         style: kTextStyleFormulario,
                         onChanged: (estilo) => cerveja.estilo = estilo,
@@ -158,7 +158,7 @@ class _TelaEdicaoCervejaState extends State<TelaEdicaoCerveja> {
                           child: Text("Odor"),
                         ),
                         Expanded(
-                          flex: 4,
+                          flex: 3,
                           child: AvaliacaoCriterio(
                             onChanged: (int odor) {
                               cerveja.odor = odor;
@@ -181,7 +181,7 @@ class _TelaEdicaoCervejaState extends State<TelaEdicaoCerveja> {
                           child: Text("Sabor"),
                         ),
                         Expanded(
-                          flex: 4,
+                          flex: 3,
                           child: AvaliacaoCriterio(
                             onChanged: (int sabor) {
                               cerveja.sabor = sabor;
@@ -204,7 +204,7 @@ class _TelaEdicaoCervejaState extends State<TelaEdicaoCerveja> {
                           child: Text("Retrogosto"),
                         ),
                         Expanded(
-                          flex: 4,
+                          flex: 3,
                           child: AvaliacaoCriterio(
                             onChanged: (int retrogosto) {
                               cerveja.retrogosto = retrogosto;
@@ -320,7 +320,7 @@ class _SliderAvaliacaoState extends State<SliderAvaliacao> {
             ),
           ),
           Expanded(
-            flex: 8,
+            flex: 9,
             child: Slider(
               activeColor: Colors.amber,
               value: valor,

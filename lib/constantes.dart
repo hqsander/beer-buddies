@@ -7,7 +7,7 @@ const kTextFieldDecoration = InputDecoration(
   hintStyle: TextStyle(
     color: Colors.white,
     fontSize: 20,
-    fontWeight: FontWeight.w300,
+    fontWeight: FontWeight.w400,
   ),
   contentPadding: EdgeInsets.symmetric(
     vertical: 1,
@@ -19,5 +19,5 @@ const kTextFieldDecoration = InputDecoration(
 const kTextStyleFormulario = TextStyle(
   color: Colors.white,
   fontSize: 20,
-  fontWeight: FontWeight.w300,
+  fontWeight: FontWeight.w400,
 );

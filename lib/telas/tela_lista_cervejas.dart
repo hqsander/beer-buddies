@@ -57,6 +57,9 @@ class TelaListaCervejas extends StatelessWidget {
               ),
             );
           },
+          onLongPress: () {
+            Provider.of<Store>(context, listen: false).deleteCerveja(cerveja);
+          },
         ),
       );
     });

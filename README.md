@@ -4,4 +4,4 @@ Beer Buddies é um aplicativo para avaliar e registrar a memória das melhores c
 ## O que está sendo criado
 Nesse momento inicial o app é capaz de gravar a avaliação de uma cerveja e lista-las, porém tenho como meta o desenvolvimento de features diversas me forçando aprender novos recursos.
 
-![Lista Cervejas](https://i.imgur.com/ZxBn6x4.png)
+![Lista Cervejas](https://i.imgur.com/nrdMqV8.png)

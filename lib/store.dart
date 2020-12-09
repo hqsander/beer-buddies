@@ -82,7 +82,7 @@ class Store extends ChangeNotifier {
     ),
     Cerveja(
       cervejaria: "Hocus Pocus",
-      nome: "Inter Stellar",
+      nome: "Interstellar",
       estilo: "IPA",
       possuiIbuInformado: true,
       ibu: 75,
@@ -117,6 +117,11 @@ class Store extends ChangeNotifier {
 
   void addCerveja(Cerveja novaCerveja) {
     cervejas.add(novaCerveja);
+    notifyListeners();
+  }
+
+  void deleteCerveja(Cerveja cerveja) {
+    cervejas.remove(cerveja);
     notifyListeners();
   }
 }
